@@ -18,20 +18,19 @@ container의 const의 여부와 상관없이 `.cbegin()`과 `.cend()`의 contain
 
 ## iterator vs. const_iterator
 ```c++
-	std::vector<std::string> kakaoFriends{"라이언", "어피치", "춘식", "무지", "죠르디"};
- 
-	using iter = std::vector<std::string>::iterator;
-	using citer = std::vector<std::string>::const_iterator;
- 
-	for (iter it = kakaoFriends.begin(); it != kakaoFriends.end(); it++) {
-    	std::cout << *it << "\n";
-    	*it = "춘식";
-	}
- 
-	for (citer cit = kakaoFriends.cbegin(); cit != kakaoFriends.cend(); cit++) {
-    	std::cout << *cit << "\n";
-    	*cit = "라이언" // 컴파일 에러 발생
-	}
+std::vector<std::string> kakaoFriends{"라이언", "어피치", "춘식", "무지", "죠르디"};
+
+using iter = std::vector<std::string>::iterator;
+using citer = std::vector<std::string>::const_iterator;
+
+for (iter it = kakaoFriends.begin(); it != kakaoFriends.end(); it++) {
+	std::cout << *it << "\n";
+	*it = "춘식";
+}
+
+for (citer cit = kakaoFriends.cbegin(); cit != kakaoFriends.cend(); cit++) {
+	std::cout << *cit << "\n";
+	*cit = "라이언" // 컴파일 에러 발생
 }
 ```
 
