@@ -24,7 +24,19 @@ const std::vector<int>::iterator it = v.begin();
 
 container마다 지원하는 반복자의 종류가 다르며, 사용할 수 있는 연산 또한 다르다. 
 
+- Bidirectional Iterator
+  - Read, Write가 가능하다.
+  - 산술연산 `++`, `--` 가능하다.
+  - 비교연산 `==`, `!=` 가능하다.
+  - 대표적인 container로 `std::list`, `std::set`, `std::map`이 해당 반복자를 지원한다.
 
+- Random Access Iterator
+  - Read, Write가 가능하다.
+  - 산술연산 `++`, `--`, `+`, `-`, `+=`, `-=` 가능하다.
+  - 비교연산 `==`, `!=`, `>`, `<`, `>=`, `<=` 가능하다.
+  - `[]` 연산자 사용이 가능하다.
+  - 대표적인 container로 `std::vector`, `std::deque`가 있다.
+  
 ## const_iterator를 사용해야 한다면 사용하자
 const_iterator는 포인터로 비교해보자면 `const T*`와 같다. 즉, iterator가 가리키는 대상을 수정하지 못하게 막을 수 있어 immutable을 보장해준다. 만약 iterator가 가리키는 대상을 수정할 필요가 없고, 수정을 원치않는다면 const_iterator를 사용하는 것이 더 안정적인 코드가 될 수 있다.
 
