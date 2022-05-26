@@ -90,3 +90,60 @@ auto cbegin(const C& container) -> decltype(std::begin(container))
 ```
 
 컨테이너 타입이 C일 때 const C& 타입 컨테이너의 iterator를 반환하였으므로, 그 결과값은 const_iterator가 된다.
+
+## Range based for loop
+c++98에서 for loop를 사용할 때는 아래의 코드와 같이 초기값, 조건식, 변화값을 주어야 했다.
+
+```c++
+std::vector<std::string> kakaoFriends{"라이언", "어피치", "춘식", "무지", "죠르디"};
+for (int i = 0; i < kakaoFriends.size(); i++) {
+  std::cout << kakaoFriends[i] << " ";
+}
+```
+c++11에서는 range based for loop라는 새로운 유형의 반복문을 제공하여 더 간단하고 안전하게 STL의 Container의 모든 요소를 반복하는 방법을 제공한다.
+
+### How to use range based for loop
+
+```c++
+for (range-declaration : range-expression) {
+  loop-statement
+}
+```
+- `range-expression` : `array`, `vector`와 같은 순회가 가능한 container를 명시해주면 된다.
+- `range-declaration` : container가 가지고 있는 elment의 type과 변수 이름을 명시해주면 된다.
+
+```c++
+std::vector<std::string> kakaoFriends{"라이언", "어피치", "춘식", "무지", "죠르디"};
+for (std::string kakaoFriend : kakaoFriends) {
+  std::cout << kakaoFriend << " ";
+}
+for (auto kakaoFriend : kakaoFriends) {
+  std::cout << kakaoFriend << " ";
+}
+```
+
+### Copy and Performance issues
+
+매번 loop를 반복할 때마다 container의 element들이 `range-declaration`에 선언된 변수에 복사가 된다. 따라서 위와 같은 range based for문 내부에서는 container의 element들을 변경할 수 없다. 또한, 복사 비용이 큰 object인 경우에는 성능 상에 이슈가 생길 수 있다.
+
+참고) https://codeforces.com/contest/1326/problem/A
+
+이러한 단점을 보완하기 위해서 c++의 reference를 이용하면 된다.
+
+```c++
+std::vector<std::string> kakaoFriends{"라이언", "어피치", "춘식", "무지", "죠르디"};
+for (std::string& kakaoFriend : kakaoFriends) {
+  /*
+  1. 복사 비용이 발생하지 않는다.
+  2. container의 element를 변경할 수 있다.
+  */
+  std::cout << kakaoFriend << " ";
+}
+for (const auto& kakaoFriend : kakaoFriends) {
+  /*
+  1. 복사 비용이 발생하지 않는다.
+  2. container의 element를 변경하지 않는 것을 보장한다.
+  */
+  std::cout << kakaoFriend << " ";
+}
+```
